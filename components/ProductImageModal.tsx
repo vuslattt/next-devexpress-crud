@@ -25,7 +25,15 @@ export default function ProductImageModal({ product, isOpen, onClose }: ProductI
     }
   }, [isOpen, product]);
 
-  if (!product) return null;
+  useEffect(() => {
+    console.log('ProductImageModal - isOpen:', isOpen);
+    console.log('ProductImageModal - product:', product);
+  }, [isOpen, product]);
+
+  if (!product) {
+    console.log('ProductImageModal: product is null');
+    return null;
+  }
 
   // Resimleri al - images array'i varsa onu kullan, yoksa imageUrl'i kullan
   const images = product.images && product.images.length > 0 
@@ -34,7 +42,13 @@ export default function ProductImageModal({ product, isOpen, onClose }: ProductI
       ? [product.imageUrl] 
       : [];
 
+  console.log('ProductImageModal - product:', product);
+  console.log('ProductImageModal - images:', images);
+  console.log('ProductImageModal - currentImageIndex:', currentImageIndex);
+
   const currentImage = images[currentImageIndex] || null;
+  
+  console.log('ProductImageModal - currentImage:', currentImage);
 
   const handlePrevious = () => {
     setCurrentImageIndex((prev) => (prev > 0 ? prev - 1 : images.length - 1));
@@ -48,15 +62,21 @@ export default function ProductImageModal({ product, isOpen, onClose }: ProductI
     setCurrentImageIndex(index);
   };
 
+  console.log('ProductImageModal - Rendering Popup with isOpen:', isOpen);
+
   return (
     <Popup
       visible={isOpen}
       onHiding={onClose}
       showTitle={true}
-      title="Resim"
+      title="Ürün Resimleri"
       width={800}
       height={600}
       showCloseButton={true}
+      dragEnabled={true}
+      closeOnOutsideClick={true}
+      position="center"
+      zIndex={10000}
     >
       <div className="p-4">
         <div className="mb-4">
@@ -79,13 +99,45 @@ export default function ProductImageModal({ product, isOpen, onClose }: ProductI
                   className="absolute left-2 z-10"
                 />
               )}
-              <Image
-                src={currentImage}
-                alt={product.productName || 'Ürün Resmi'}
-                width={600}
-                height={400}
-                className="object-contain rounded"
-              />
+              {currentImage.startsWith('/uploads/') || currentImage.startsWith('http://localhost') ? (
+                // Local dosyalar için normal img tag kullan
+                <img
+                  src={currentImage}
+                  alt={product.productName || 'Ürün Resmi'}
+                  className="object-contain rounded max-w-full max-h-[400px]"
+                  onError={(e) => {
+                    console.error('Image load error:', currentImage);
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                    if (target.parentElement) {
+                      const errorDiv = document.createElement('div');
+                      errorDiv.className = 'text-red-500 text-center p-4';
+                      errorDiv.textContent = 'Resim yüklenemedi';
+                      target.parentElement.appendChild(errorDiv);
+                    }
+                  }}
+                />
+              ) : (
+                // External URL'ler için Next.js Image component
+                <Image
+                  src={currentImage}
+                  alt={product.productName || 'Ürün Resmi'}
+                  width={600}
+                  height={400}
+                  className="object-contain rounded"
+                  onError={(e) => {
+                    console.error('Image load error:', currentImage);
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                    if (target.parentElement) {
+                      const errorDiv = document.createElement('div');
+                      errorDiv.className = 'text-red-500 text-center p-4';
+                      errorDiv.textContent = 'Resim yüklenemedi';
+                      target.parentElement.appendChild(errorDiv);
+                    }
+                  }}
+                />
+              )}
               {images.length > 1 && (
                 <Button
                   icon="chevronright"

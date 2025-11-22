@@ -30,12 +30,12 @@ body {
 .dx-notification-wrapper,
 [class*="dx-notification"],
 [class*="dx-toast"],
-[class*="dx-message"],
-div[style*="position: fixed"][style*="top"],
-div[style*="position: fixed"][style*="z-index"] {
+[class*="dx-message"] {
   display: none !important;
   visibility: hidden !important;
 }
+
+/* DevExpress Popup'ları gizleme - sadece banner'ları hedefle */
 
 /* DevExpress değerlendirme banner'ını gizle */
 body > div:has-text("For evaluation purposes"),
@@ -46,11 +46,8 @@ div[title*="license"] {
   visibility: hidden !important;
 }
 
-/* Tüm fixed position elementlerini kontrol et (DevExpress banner için) */
-body > div[style*="position: fixed"]:not([class*="dx-popup"]):not([class*="dx-overlay"]) {
-  display: none !important;
-  visibility: hidden !important;
-}
+/* Bu kural kaldırıldı - Popup'ları gizliyordu */
+/* Banner'ları gizlemek için HideDevExpressBanner component'i kullanılıyor */
 
 /* Navigation bar button styles */
 nav .dx-button.dx-button-mode-text {

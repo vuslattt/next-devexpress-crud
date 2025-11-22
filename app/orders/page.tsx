@@ -109,8 +109,10 @@ export default function OrdersPage() {
   };
 
   const handleImageClick = (product: any) => {
+    console.log('OrdersPage - handleImageClick called with product:', product);
     setSelectedProduct(product);
     setIsModalOpen(true);
+    console.log('OrdersPage - setIsModalOpen(true) called');
   };
 
   const handlePrint = () => {
