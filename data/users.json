@@ -18,24 +18,6 @@
     "password": "admin123"
   },
   {
-    "id": 2,
-    "name": "Göksu",
-    "surname": "Alkan",
-    "username": "deneme99",
-    "userNo": 5000001,
-    "email": "goksu.alkan@example.com",
-    "role": "GENEL MÜDÜR",
-    "department": "Üretim",
-    "admin": true,
-    "representative": true,
-    "canSeeAllBranches": true,
-    "salesRepresentative": true,
-    "seesStockCosts": true,
-    "restrictedFinanceUser": false,
-    "systemAuthority": true,
-    "password": "password123"
-  },
-  {
     "id": 3,
     "name": "Abdulkadir",
     "surname": "Öçsoy",
@@ -55,11 +37,11 @@
   },
   {
     "id": 5,
-    "name": "Talha",
-    "surname": "Şekerci",
-    "username": "talha",
+    "name": "Satış",
+    "surname": "",
+    "username": "satış",
     "userNo": 8000003,
-    "email": "talha.sekerci@example.com",
+    "email": "bkjbkjlo",
     "role": "SATIŞ TEMSİLCİSİ",
     "department": "Satış",
     "admin": false,
@@ -106,6 +88,3 @@
     "id": 7
   }
 ]
-
-
-

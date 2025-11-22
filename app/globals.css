@@ -14,13 +14,62 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff;
+    --foreground: #171717;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: #ffffff;
+  color: #171717;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* DevExpress lisans uyarı mesajını gizle */
+.dx-notification,
+.dx-notification-wrapper,
+[class*="dx-notification"],
+[class*="dx-toast"],
+[class*="dx-message"],
+div[style*="position: fixed"][style*="top"],
+div[style*="position: fixed"][style*="z-index"] {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* DevExpress değerlendirme banner'ını gizle */
+body > div:has-text("For evaluation purposes"),
+body > div:has-text("Redistribution prohibited"),
+div[title*="evaluation"],
+div[title*="license"] {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Tüm fixed position elementlerini kontrol et (DevExpress banner için) */
+body > div[style*="position: fixed"]:not([class*="dx-popup"]):not([class*="dx-overlay"]) {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Navigation bar button styles */
+nav .dx-button.dx-button-mode-text {
+  color: #ffffff !important;
+}
+
+nav .dx-button.dx-button-mode-text.dx-state-hover {
+  color: #f0f0f0 !important;
+}
+
+nav .dx-button.dx-button-mode-text.dx-state-active {
+  color: #fde047 !important;
+}
+
+/* Navigation bar button icons */
+nav .dx-button.dx-button-mode-text .dx-icon {
+  color: #ffffff !important;
+}
+
+nav .dx-button.dx-button-mode-text.dx-state-hover .dx-icon {
+  color: #f0f0f0 !important;
 }

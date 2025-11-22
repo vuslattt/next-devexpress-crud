@@ -98,7 +98,13 @@ export async function PUT(
       );
     }
 
-    order.products[productIndex] = { ...order.products[productIndex], ...productData };
+    // productData içindeki tüm field'ları merge et (images dahil)
+    const updatedProduct = { ...order.products[productIndex], ...productData };
+    console.log('API PUT - productData:', productData);
+    console.log('API PUT - productData.images:', productData.images);
+    console.log('API PUT - updatedProduct:', updatedProduct);
+    console.log('API PUT - updatedProduct.images:', updatedProduct.images);
+    order.products[productIndex] = updatedProduct;
     writeFileSync(filePath, JSON.stringify(orders, null, 2), 'utf8');
 
     return NextResponse.json(order.products[productIndex]);

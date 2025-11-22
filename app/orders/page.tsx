@@ -39,12 +39,13 @@ export default function OrdersPage() {
   const [dataSource, setDataSource] = useState<any>(null);
   const [startDate, setStartDate] = useState<Date>(new Date('2024-10-11'));
   const [endDate, setEndDate] = useState<Date>(new Date('2024-10-21'));
-  const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
+  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
   const [users, setUsers] = useState<any[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [canEdit, setCanEdit] = useState(false);
   const gridRef = useRef<any>(null);
+  const gridInstanceRef = useRef<any>(null);
 
   useEffect(() => {
     setCanEdit(hasManagementPermission());
@@ -53,7 +54,13 @@ export default function OrdersPage() {
     fetch('/api/users')
       .then(res => res.json())
       .then(data => {
-        setUsers([{ id: null, name: 'Tümü', surname: '' }, ...data]);
+        // Her kullanıcı için "Ad Soyad" formatında bir temsilci adı oluştur
+        const userOptions = data.map((user: any) => ({
+          ...user,
+          representativeName: `${user.name} ${user.surname}`.trim()
+        }));
+        // "Tümü" için özel bir değer kullan (boş string)
+        setUsers([{ id: null, name: 'Tümü', surname: '', representativeName: '' }, ...userOptions]);
       });
 
     // DataSource'u oluştur
@@ -64,8 +71,10 @@ export default function OrdersPage() {
           startDate: startDate.toISOString().split('T')[0],
           endDate: endDate.toISOString().split('T')[0],
         });
-        if (selectedUserId) {
-          params.append('userId', selectedUserId.toString());
+        if (selectedUserId && selectedUserId !== '') {
+          // selectedUserId artık temsilci adı (name surname) olarak gönderiliyor
+          // Boş string ise "Tümü" seçilmiş demektir, filtreleme yapma
+          params.append('userId', selectedUserId);
         }
         const response = await fetch(`/api/orders?${params}`);
         return await response.json();
@@ -132,7 +141,7 @@ export default function OrdersPage() {
     <ProtectedRoute>
       <div className="p-4">
         {/* Toolbar */}
-        <div className="bg-black text-white p-2 mb-2 rounded flex items-center gap-2 text-xs">
+        <div className="bg-white text-black p-2 mb-2 rounded flex items-center gap-2 text-xs border border-gray-300">
           <div className="flex items-center gap-1">
             <DateBox
               value={startDate}
@@ -152,11 +161,18 @@ export default function OrdersPage() {
           </div>
           <SelectBox
             dataSource={users}
-            displayExpr={(item) => item ? `${item.name} ${item.surname}`.trim() : 'Tümü'}
-            valueExpr="id"
-            value={selectedUserId}
-            onValueChange={setSelectedUserId}
-            placeholder="Kullanıcı Seç..."
+            displayExpr={(item) => {
+              if (!item) return 'Tümü';
+              if (item.representativeName === '') return 'Tümü';
+              return item.representativeName || `${item.name} ${item.surname}`.trim();
+            }}
+            valueExpr="representativeName"
+            value={selectedUserId === null ? '' : selectedUserId}
+            onValueChange={(value) => {
+              // Boş string veya null ise null yap (Tümü seçildi)
+              setSelectedUserId(value === '' || value === null ? null : value);
+            }}
+            placeholder="Temsilci Seç..."
             width={150}
             height={28}
           />
@@ -176,24 +192,58 @@ export default function OrdersPage() {
               text="Yeni"
               icon="plus"
               onClick={() => {
-                if (canEdit && gridRef.current) {
-                  const gridElement = gridRef.current as any;
-                  if (gridElement && gridElement.instance) {
-                    gridElement.instance.addRow();
+                if (canEdit) {
+                  // Önce instance üzerinden dene
+                  if (gridInstanceRef.current) {
+                    try {
+                      if (typeof gridInstanceRef.current.addRow === 'function') {
+                        gridInstanceRef.current.addRow();
+                        return;
+                      }
+                    } catch (error) {
+                      console.error('Add row via instance error:', error);
+                    }
                   }
+                  
+                  // Instance çalışmazsa, toolbar'daki addButton'u bul ve tıkla
+                  setTimeout(() => {
+                    // Ana DataGrid'in toolbar'ını bul (master detail olabilir, ilk toolbar'ı al)
+                    const mainGrid = document.querySelector('.dx-datagrid');
+                    if (mainGrid) {
+                      const toolbar = mainGrid.querySelector('.dx-datagrid-toolbar');
+                      if (toolbar) {
+                        // Toolbar içindeki addButton'u bul
+                        const addButton = toolbar.querySelector('.dx-datagrid-addrow-button') as HTMLElement;
+                        if (addButton && !addButton.classList.contains('dx-state-disabled')) {
+                          addButton.click();
+                          return;
+                        }
+                        
+                        // Alternatif: Tüm butonları kontrol et
+                        const buttons = toolbar.querySelectorAll('button, .dx-button');
+                        for (let i = 0; i < buttons.length; i++) {
+                          const btn = buttons[i] as HTMLElement;
+                          const ariaLabel = btn.getAttribute('aria-label') || '';
+                          const title = btn.getAttribute('title') || '';
+                          
+                          if ((ariaLabel.toLowerCase().includes('add') || 
+                               ariaLabel.toLowerCase().includes('ekle') ||
+                               title.toLowerCase().includes('add') ||
+                               title.toLowerCase().includes('ekle')) &&
+                              !btn.classList.contains('dx-state-disabled') &&
+                              !btn.hasAttribute('disabled')) {
+                            btn.click();
+                            return;
+                          }
+                        }
+                      }
+                    }
+                  }, 100);
                 }
               }}
               stylingMode="contained"
               type="default"
               disabled={!canEdit}
-              height={28}
-            />
-            <Button
-              text="Düzenle"
-              icon="edit"
-              stylingMode="contained"
-              type="default"
-              disabled={selectedRowKeys.length !== 1 || !canEdit}
               height={28}
             />
             <Button
@@ -223,6 +273,7 @@ export default function OrdersPage() {
               if (gridRef.current) {
                 (gridRef.current as any).instance = e.component;
               }
+              gridInstanceRef.current = e.component;
             }}
             onInitNewRow={(e: any) => {
               e.data.orderDate = new Date().toISOString().split('T')[0];

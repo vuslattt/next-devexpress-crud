@@ -18,20 +18,26 @@ export default function Navigation() {
   }
 
   return (
-    <nav className="bg-blue-600 text-white p-4 shadow-md">
+    <nav className="bg-black text-white p-4 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex gap-4">
           <Button
             text="Kullanıcılar"
             stylingMode="text"
             onClick={() => router.push('/users')}
-            className={pathname?.startsWith('/users') ? 'text-yellow-300' : ''}
+            className={pathname?.startsWith('/users') ? 'text-yellow-300' : 'text-white'}
+            elementAttr={{
+              style: { color: pathname?.startsWith('/users') ? '#fde047' : '#ffffff' }
+            }}
           />
           <Button
             text="Siparişler"
             stylingMode="text"
             onClick={() => router.push('/orders')}
-            className={pathname?.startsWith('/orders') ? 'text-yellow-300' : ''}
+            className={pathname?.startsWith('/orders') ? 'text-yellow-300' : 'text-white'}
+            elementAttr={{
+              style: { color: pathname?.startsWith('/orders') ? '#fde047' : '#ffffff' }
+            }}
           />
         </div>
         <Button
@@ -39,6 +45,10 @@ export default function Navigation() {
           stylingMode="text"
           icon="close"
           onClick={handleLogout}
+          className="text-white"
+          elementAttr={{
+            style: { color: '#ffffff' }
+          }}
         />
       </div>
     </nav>

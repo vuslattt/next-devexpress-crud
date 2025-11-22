@@ -1,72 +1,5 @@
 [
   {
-    "id": 1,
-    "branch": "Merkez",
-    "year": 2024,
-    "orderSeries": "A",
-    "orderNo": 12,
-    "orderDate": "2024-10-15",
-    "orderType": "İç Piyasa",
-    "companyNo": "210027881",
-    "companyName": "ODAK İNOVASYON",
-    "paymentMethod": "AÇIK HESAP",
-    "paymentDueDate": 30,
-    "deliveryMethod": "Depo Teslim",
-    "documentApproval": true,
-    "representative": "Turan Atik",
-    "userId": 1,
-    "products": [
-      {
-        "id": 1,
-        "productNo": "PRD001",
-        "sequenceNo": 1,
-        "productName": "BOYALI ALÜMİNYUM PROFİL",
-        "profile": "PROF001",
-        "surface": "MAT",
-        "color": "RAL 9003",
-        "alloy": "6061",
-        "hardness": "F18",
-        "companyProductNo": "CP001",
-        "profileNo": "PF001",
-        "weight": 2.5,
-        "insulationAssembly": false,
-        "length": 6000,
-        "quantity": 100,
-        "amount": 250,
-        "priceUnit": "KILOGRAM",
-        "images": [
-          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800",
-          "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800",
-          "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800"
-        ]
-      },
-      {
-        "id": 2,
-        "productNo": "PRD002",
-        "sequenceNo": 2,
-        "productName": "BOYALI ALÜMİNYUM PROFİL",
-        "profile": "PROF002",
-        "surface": "MAT",
-        "color": "RAL 9003",
-        "alloy": "7050",
-        "hardness": "F18",
-        "companyProductNo": "CP002",
-        "profileNo": "PF002",
-        "weight": 3,
-        "insulationAssembly": false,
-        "length": 6000,
-        "quantity": 150,
-        "amount": 450,
-        "priceUnit": "KILOGRAM",
-        "images": [
-          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800",
-          "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800",
-          "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800"
-        ]
-      }
-    ]
-  },
-  {
     "id": 2,
     "branch": "Merkez",
     "year": 2024,
@@ -75,38 +8,14 @@
     "orderDate": "2024-10-15",
     "orderType": "İç Piyasa",
     "companyNo": "210027886",
-    "companyName": "ALUCOREX",
+    "companyName": "ODAK İNOVASYON",
     "paymentMethod": "AÇIK HESAP",
     "paymentDueDate": 45,
     "deliveryMethod": "Depo Teslim",
     "documentApproval": true,
-    "representative": "Göksu Alkan",
+    "representative": "Turan Atik",
     "userId": 1,
     "products": [
-      {
-        "id": 3,
-        "productNo": "PRD003",
-        "sequenceNo": 1,
-        "productName": "BOYALI ALÜMİNYUM PROFİL",
-        "profile": "PROF003",
-        "surface": "MAT",
-        "color": "RAL 9003",
-        "alloy": "6063",
-        "hardness": "F18",
-        "companyProductNo": "CP003",
-        "profileNo": "PF003",
-        "weight": 2.8,
-        "insulationAssembly": false,
-        "length": 6000,
-        "quantity": 200,
-        "amount": 560,
-        "priceUnit": "KILOGRAM",
-        "images": [
-          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800",
-          "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800",
-          "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800"
-        ]
-      },
       {
         "id": 4,
         "productNo": "PRD004",
@@ -153,19 +62,52 @@
     ]
   },
   {
-    "branch": "Başakşehir",
-    "year": 2025,
-    "orderSeries": "B",
+    "orderDate": "2024-10-16",
+    "branch": "Şube 1",
+    "year": 2024,
+    "orderSeries": "TEST",
     "orderNo": 1,
-    "orderDate": "2025-11-22",
-    "orderType": "İç Piyasa",
-    "companyNo": "343434",
-    "companyName": "Odak İnovasyon",
-    "paymentMethod": "Açık Hesap",
-    "paymentDueDate": 60,
-    "deliveryMethod": "Kargo",
+    "orderType": "Dış Piyasa",
+    "companyNo": "nnkfj",
+    "companyName": "XYZ LTD",
+    "paymentMethod": "PEŞIN",
+    "paymentDueDate": 0,
+    "deliveryMethod": "Müşteri Alacak",
     "documentApproval": true,
-    "representative": "Vuslat",
-    "id": 3
+    "representative": "Vuslat Coşkun",
+    "id": 4,
+    "products": [
+      {
+        "alloy": "6061",
+        "hardness": "T4",
+        "productNo": "1",
+        "sequenceNo": "1",
+        "productName": "TEST",
+        "profile": "TEST",
+        "surface": "PARLAK",
+        "color": "RAL 9003",
+        "insulationAssembly": true,
+        "id": 1
+      }
+    ]
+  },
+  {
+    "orderDate": "2024-10-19",
+    "branch": "Şube 3",
+    "year": 2024,
+    "orderSeries": "Test2",
+    "id": 5,
+    "products": [
+      {
+        "productNo": "test",
+        "sequenceNo": "test",
+        "productName": "test",
+        "surface": "DOĞAL",
+        "color": "GÜMÜŞ",
+        "images": [],
+        "id": 1
+      }
+    ],
+    "companyName": "ABC ŞİRKET"
   }
 ]

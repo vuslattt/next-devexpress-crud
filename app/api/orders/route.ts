@@ -25,10 +25,22 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    // Kullanıcı filtresi
+    // Temsilci filtresi (representative field'ına göre)
     if (userId && userId !== 'null' && userId !== 'undefined') {
-      const userIdNum = parseInt(userId);
-      orders = orders.filter((order: any) => order.userId === userIdNum);
+      // userId aslında temsilci adı (name surname formatında) olarak gönderiliyor
+      const representativeName = userId;
+      orders = orders.filter((order: any) => {
+        // Hem userId hem de representative field'larını kontrol et
+        if (order.representative === representativeName) {
+          return true;
+        }
+        // Eğer userId sayısal ise, eski format için de kontrol et
+        const userIdNum = parseInt(userId);
+        if (!isNaN(userIdNum) && order.userId === userIdNum) {
+          return true;
+        }
+        return false;
+      });
     }
 
     return NextResponse.json(orders);

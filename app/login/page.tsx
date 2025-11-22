@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import { TextBox } from 'devextreme-react/text-box';
+import Image from 'next/image';
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
@@ -52,6 +53,18 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100">
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
+        <div className="flex justify-center mb-6">
+          <div className="relative w-32 h-32 flex items-center justify-center">
+            <Image
+              src="/logo.png"
+              alt="Logo"
+              width={128}
+              height={128}
+              className="object-contain"
+              priority
+            />
+          </div>
+        </div>
         <h1 className="text-2xl font-bold text-center mb-6">Giriş Yap</h1>
         <form onSubmit={handleLogin}>
           <div className="mb-4">
@@ -85,9 +98,9 @@ export default function LoginPage() {
           </button>
         </form>
         <div className="mt-4 text-sm text-gray-600 text-center">
-          <p className="font-semibold mb-2">Test kullanıcıları:</p>
-          <p>Kullanıcı Adı: <strong>ADMIN</strong> / Şifre: <strong>admin123</strong></p>
-          <p>Kullanıcı Adı: <strong>mervan</strong> / Şifre: <strong>password123</strong></p>
+          <p className="font-semibold mb-2">Test kullanıcıları (yönetim yetkili giriş ekleme çıkarma düzenleme yapabilir, satış yetkili giriş sadece görüntüleyebilir değişiklik yapamaz):</p>
+          <p>Kullanıcı Adı yönetim: <strong>vuslat</strong> / Şifre: <strong>password33</strong></p>
+          <p>Kullanıcı Adı satışcı: <strong>satış</strong> / Şifre: <strong>password123</strong></p>
         </div>
       </div>
     </div>

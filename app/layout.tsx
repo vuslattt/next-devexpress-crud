@@ -15,7 +15,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr">
-      <body className="antialiased">
+      <head>
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            /* DevExpress lisans uyarı mesajını gizle */
+            .dx-notification,
+            .dx-notification-wrapper,
+            [class*="dx-notification"],
+            [class*="dx-toast"],
+            [class*="dx-message"],
+            div[style*="position: fixed"][style*="top"]:not([class*="dx-popup"]):not([class*="dx-overlay"]),
+            div[style*="position: fixed"][style*="z-index"]:not([class*="dx-popup"]):not([class*="dx-overlay"]) {
+              display: none !important;
+              visibility: hidden !important;
+            }
+          `
+        }} />
+      </head>
+      <body className="antialiased bg-white text-black">
         <Navigation />
         {children}
       </body>

@@ -154,7 +154,7 @@ export default function UserFormPage() {
             <TabItem title="Kullanıcı Bilgileri">
               <div className="grid grid-cols-3 gap-4 mt-4">
                 <div>
-                  <Label text="Ad *" />
+                  <label className="block text-sm font-medium mb-1 text-black">Ad *</label>
                   <TextBox
                     value={formData.name}
                     onValueChange={(value) => setFormData({ ...formData, name: value })}
@@ -162,7 +162,7 @@ export default function UserFormPage() {
                   />
                 </div>
                 <div>
-                  <Label text="Soyad *" />
+                  <label className="block text-sm font-medium mb-1 text-black">Soyad *</label>
                   <TextBox
                     value={formData.surname}
                     onValueChange={(value) => setFormData({ ...formData, surname: value })}
@@ -170,7 +170,7 @@ export default function UserFormPage() {
                   />
                 </div>
                 <div>
-                  <Label text="Kullanıcı Adı *" />
+                  <label className="block text-sm font-medium mb-1 text-black">Kullanıcı Adı *</label>
                   <TextBox
                     value={formData.username}
                     onValueChange={(value) => setFormData({ ...formData, username: value })}
@@ -178,7 +178,7 @@ export default function UserFormPage() {
                   />
                 </div>
                 <div>
-                  <Label text="Rol *" />
+                  <label className="block text-sm font-medium mb-1 text-black">Rol *</label>
                   <SelectBox
                     dataSource={roles}
                     value={formData.role}
@@ -188,7 +188,7 @@ export default function UserFormPage() {
                   />
                 </div>
                 <div>
-                  <Label text="Departman *" />
+                  <label className="block text-sm font-medium mb-1 text-black">Departman *</label>
                   <SelectBox
                     dataSource={departments}
                     value={formData.department}
@@ -198,7 +198,7 @@ export default function UserFormPage() {
                   />
                 </div>
                 <div>
-                  <Label text="Email Adresi *" />
+                  <label className="block text-sm font-medium mb-1 text-black">Email Adresi *</label>
                   <TextBox
                     value={formData.email}
                     onValueChange={(value) => setFormData({ ...formData, email: value })}
@@ -230,7 +230,7 @@ export default function UserFormPage() {
                   />
                 </div>
                 <div>
-                  <Label text="Şifre" />
+                  <label className="block text-sm font-medium mb-1 text-black">Şifre</label>
                   <TextBox
                     mode="password"
                     value={formData.password}
@@ -239,7 +239,7 @@ export default function UserFormPage() {
                   />
                 </div>
                 <div>
-                  <Label text="Admin" />
+                  <label className="block text-sm font-medium mb-1 text-black">Admin</label>
                   <SelectBox
                     dataSource={adminOptions}
                     value={formData.admin}
